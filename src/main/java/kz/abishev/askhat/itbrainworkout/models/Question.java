@@ -3,6 +3,8 @@ package kz.abishev.askhat.itbrainworkout.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -21,4 +23,6 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "status_id", foreignKey = @ForeignKey(name = "STATUS_ID_FK"))
     private Status status;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Answer> answers = new HashSet<>();
 }

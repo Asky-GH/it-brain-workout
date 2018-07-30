@@ -16,9 +16,6 @@ public class Answer {
     @org.hibernate.annotations.Type(type = "text")
     private String body;
     @ManyToOne
-    @JoinColumn(name = "question_id", foreignKey = @ForeignKey(name = "QUESTION_ID_FK"))
-    private Question question;
-    @ManyToOne
     @JoinColumn(name = "type_id", foreignKey = @ForeignKey(name = "TYPE_ID_FK"))
     private Type type;
 }

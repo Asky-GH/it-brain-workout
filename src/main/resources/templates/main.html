@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Главная</title>
+    </head>
+
+    <body>
+        <div th:each="subject : ${subjects}">
+            <a th:href="@{/subjects/} + ${subject.title}" th:text="${subject.title}">Subject's title</a>
+        </div>
+    </body>
+</html>

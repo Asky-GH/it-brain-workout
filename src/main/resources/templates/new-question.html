@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Новый вопрос</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1 th:text="${subjectTitle}">Subject title</h1>
+
+            <div>
+                <strong>Примечание:</strong> предложенный вами вопрос не сразу появиться в тесте. Чтобы попасть в тест, предложенный вопрос должен пройти проверку.
+            </div>
+
+            <form th:action="@{'/questions/' + ${subjectTitle} + '/new'}" method="post" th:object="${newQuestionForm}">
+                <div>
+                    <label>Вопрос</label>
+
+                    <textarea rows="5" cols="50" th:field="*{question}" autofocus="true"></textarea>
+
+                    <p th:if="${#fields.hasErrors('question')}" th:errors="*{question}">question errors</p>
+                </div>
+
+                <div>
+                    <label>Ответы (перед нажатием на кнопку "Предложить", отметьте правильный ответ)</label>
+
+                    <!-- answer1 -->
+                    <input type="radio" name="answers" value="answer1" checked="true"/>
+
+                    <textarea rows="5" cols="50" th:field="*{answer1}" autofocus="true"></textarea>
+
+                    <p th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}">answer1 errors</p>
+
+                    <!-- answer2 -->
+                    <input type="radio" name="answers" value="answer2"/>
+
+                    <textarea rows="5" cols="50" th:field="*{answer2}"></textarea>
+
+                    <p th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}">answer2 errors</p>
+
+                    <!-- answer3 -->
+                    <input type="radio" name="answers" value="answer3"/>
+
+                    <textarea rows="5" cols="50" th:field="*{answer3}"></textarea>
+
+                    <p th:if="${#fields.hasErrors('answer3')}" th:errors="*{answer3}">answer3 errors</p>
+
+                    <!-- answer4 -->
+                    <input type="radio" name="answers" value="answer4"/>
+
+                    <textarea rows="5" cols="50" th:field="*{answer4}"></textarea>
+
+                    <p th:if="${#fields.hasErrors('answer4')}" th:errors="*{answer4}">answer4 errors</p>
+
+                    <p th:if="${#fields.hasErrors('global')}" th:errors="*{global}">global errors</p>
+                </div>
+
+                <input type="submit" value="Предложить"/>
+            </form>
+        </div>
+    </body>
+</html>

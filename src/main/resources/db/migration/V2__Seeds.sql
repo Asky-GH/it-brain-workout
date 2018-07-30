@@ -23,3 +23,26 @@ INSERT INTO users_roles(user_id, roles_id) VALUES(1, 3);
 INSERT INTO users_roles(user_id, roles_id) VALUES(2, 2);
 INSERT INTO users_roles(user_id, roles_id) VALUES(2, 3);
 INSERT INTO users_roles(user_id, roles_id) VALUES(3, 3);
+
+INSERT INTO questions(id, body, status_id, subject_id) VALUES(1, 'Каков размер данных типа char?', 1, 1);
+INSERT INTO questions(id, body, status_id, subject_id) VALUES(2, 'Какое из следующих утверждений верно для класса: java.util.ArrayList?', 2, 1);
+
+-- Каков размер данных типа char?
+INSERT INTO answers(id, body, type_id) VALUES(1, '16 бит', 2);
+INSERT INTO answers(id, body, type_id) VALUES(2, '32 бит', 2);
+INSERT INTO answers(id, body, type_id) VALUES(3, '7 бит', 2);
+INSERT INTO answers(id, body, type_id) VALUES(4, '1 байт', 1);
+-- Какое из следующих утверждений верно для класса: java.util.ArrayList?
+INSERT INTO answers(id, body, type_id) VALUES(5, 'Коллекция гарантированно неизменная (immutable)', 2);
+INSERT INTO answers(id, body, type_id) VALUES(6, 'Элементы в коллекции доступны с помощью уникального ключа', 2);
+INSERT INTO answers(id, body, type_id) VALUES(7, 'Элементы в коллекции упорядочены', 1);
+INSERT INTO answers(id, body, type_id) VALUES(8, 'Элементы коллекции гарантированно уникальные', 2);
+
+INSERT INTO questions_answers(question_id, answers_id) VALUES(1, 1);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(1, 2);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(1, 3);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(1, 4);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(2, 5);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(2, 6);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(2, 7);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(2, 8);

@@ -55,11 +55,16 @@ CREATE TABLE questions (
 CREATE TABLE answers (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   body longtext NOT NULL,
-  question_id bigint(20) NOT NULL,
   type_id tinyint(4) NOT NULL,
   PRIMARY KEY (id),
-  KEY QUESTION_ID_FK (question_id),
   KEY TYPE_ID_FK (type_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE questions_answers (
+  question_id bigint(20) NOT NULL,
+  answers_id bigint(20) NOT NULL,
+  PRIMARY KEY (question_id,answers_id),
+  UNIQUE KEY UK_tq19n223pwlcaw8qwngigjtyq (answers_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE progresses (

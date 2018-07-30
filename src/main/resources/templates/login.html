@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Вход</title>
     </head>
@@ -20,15 +20,15 @@
 
         <form th:action="@{/login}" method="post">
             <div>
-                <label>Имя пользователя:
-                    <input type="text" name="username"/>
-                </label>
+                <label>Имя пользователя:</label>
+
+                <input type="text" name="username" autofocus="true"/>
             </div>
 
             <div>
-                <label>Пароль:
-                    <input type="password" name="password"/>
-                </label>
+                <label>Пароль:</label>
+
+                <input type="password" name="password"/>
             </div>
 
             <div>
@@ -37,7 +37,7 @@
         </form>
 
         <div>
-            <a th:href="@{/registration}">Регистрация</a>
+            <a th:href="@{/auth/registration}">Регистрация</a>
         </div>
     </body>
 </html>

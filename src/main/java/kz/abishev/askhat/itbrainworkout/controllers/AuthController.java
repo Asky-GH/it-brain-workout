@@ -12,12 +12,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
 @Controller
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -26,13 +28,13 @@ public class AuthController {
     private RoleRepository roleRepository;
 
     @GetMapping("/registration")
-    public String getRegistrationForm(RegistrationForm registrationForm)
+    public String getRegistrationPage(RegistrationForm registrationForm)
     {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registerUser(@Valid RegistrationForm registrationForm, BindingResult bindingResult)
+    public String createUser(@Valid RegistrationForm registrationForm, BindingResult bindingResult)
     {
         if (userRepository.findByUsername(registrationForm.getUsername()) != null){
             bindingResult.addError(new ObjectError("registrationForm", "Имя пользователя уже существует!"));

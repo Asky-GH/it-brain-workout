@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Регистрация</title>
     </head>
@@ -8,28 +8,28 @@
     <body>
         <form th:action="@{/registration}" method="post" th:object="${registrationForm}">
             <div>
-                <label>Имя пользователя:
-                    <input type="text" th:field="*{username}"/>
-                </label>
-            </div>
+                <label>Имя пользователя:</label>
 
-            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username errors</div>
+                <input type="text" th:field="*{username}" autofocus="true"/>
+
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username errors</p>
+            </div>
 
             <div>
-                <label>Пароль:
-                    <input type="password" th:field="*{password}"/>
-                </label>
-            </div>
+                <label>Пароль:</label>
 
-            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password errors</div>
+                <input type="password" th:field="*{password}"/>
+
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password errors</p>
+            </div>
 
             <div>
-                <label>Пароль:
-                    <input type="password" th:field="*{password_confirm}"/>
-                </label>
-            </div>
+                <label>Пароль:</label>
 
-            <div th:if="${#fields.hasErrors('global')}" th:errors="*{global}">global errors</div>
+                <input type="password" th:field="*{password_confirm}"/>
+
+                <p th:if="${#fields.hasErrors('global')}" th:errors="*{global}">global errors</p>
+            </div>
 
             <div>
                 <input type="submit" value="Зарегистрироваться"/>

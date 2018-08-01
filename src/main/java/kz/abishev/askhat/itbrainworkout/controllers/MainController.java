@@ -28,7 +28,7 @@ public class MainController {
     @GetMapping("")
     public String getMainPage(Model model){
         model.addAttribute("subjects", subjectRepository.findAll());
-        return "main";
+        return "main/main";
     }
 
     @GetMapping("{subjectTitle}/test")
@@ -38,6 +38,6 @@ public class MainController {
 
         model.addAttribute("subjectTitle", subjectTitle);
         model.addAttribute("questions", questions);
-        return "test";
+        return "main/test";
     }
 }

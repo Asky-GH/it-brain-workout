@@ -30,7 +30,7 @@ public class AuthController {
     @GetMapping("/registration")
     public String getRegistrationPage(RegistrationForm registrationForm)
     {
-        return "registration";
+        return "auth/registration";
     }
 
     @PostMapping("/registration")
@@ -38,16 +38,16 @@ public class AuthController {
     {
         if (userRepository.findByUsername(registrationForm.getUsername()) != null){
             bindingResult.addError(new ObjectError("registrationForm", "Имя пользователя уже существует!"));
-            return "registration";
+            return "auth/registration";
         }
 
         if (!registrationForm.getPassword().equals(registrationForm.getPasswordConfirm())){
             bindingResult.addError(new ObjectError("registrationForm", "Пароли не совпадают!"));
-            return "registration";
+            return "auth/registration";
         }
 
         if (bindingResult.hasErrors()){
-            return "registration";
+            return "auth/registration";
         }
 
         User user = new User();

@@ -35,6 +35,6 @@ public class SubjectController {
 
         model.addAttribute("subject", subject);
         model.addAttribute("questionsCount", questions.size());
-        return "subject";
+        return "main/subject";
     }
 }

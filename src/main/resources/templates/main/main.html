@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
+    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
         <title>Главная</title>
+
+        <link href="#" rel="stylesheet">
     </head>
 
     <body>
+        <nav th:replace="fragments :: navigation"></nav>
+
         <div th:each="subject : ${subjects}">
             <a th:href="@{/subjects/} + ${subject.title}" th:text="${subject.title}">Subject's title</a>
         </div>
+
+        <footer th:replace="fragments :: footer"></footer>
     </body>
 </html>

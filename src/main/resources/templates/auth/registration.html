@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+        <title>Регистрация</title>
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{/css/auth.css}" rel="stylesheet">
+    </head>
+
+    <body class="text-center">
+        <form class="form-auth" th:action="@{/auth/registration}" method="post" th:object="${registrationForm}">
+            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username errors</div>
+
+            <div>
+                <label for="inputUsername" class="sr-only">Имя пользователя</label>
+
+                <input tabindex="1" id="inputUsername" type="text" th:field="*{username}" class="form-control" placeholder="Имя пользователя" autofocus="true"/>
+            </div>
+
+            <div>
+                <label for="inputPassword" class="sr-only">Пароль</label>
+
+                <input tabindex="2" id="inputPassword" type="password" th:field="*{password}" class="form-control" placeholder="Пароль"/>
+
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password errors</div>
+            </div>
+
+            <div>
+                <label for="inputPasswordConfirm" class="sr-only">Подтверждение пароля</label>
+
+                <input tabindex="3" id="inputPasswordConfirm" type="password" th:field="*{password_confirm}" class="form-control" placeholder="Подтверждение пароля"/>
+
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('global')}" th:errors="*{global}">global errors</div>
+            </div>
+
+            <div>
+                <input tabindex="4" class="btn btn-lg btn-primary btn-block" type="submit" value="Зарегистрироваться"/>
+            </div>
+        </form>
+    </body>
+</html>

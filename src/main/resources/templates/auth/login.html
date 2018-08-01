@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+        <title>Вход</title>
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{/css/auth.css}" rel="stylesheet">
+    </head>
+
+    <body class="text-center">
+        <form class="form-auth" th:action="@{/login}" method="post">
+            <div class="alert alert-info" role="alert" th:if="${param.logout}">
+                Вы успешно вышли!
+            </div>
+
+            <div class="alert alert-info" role="alert" th:if="${param.success}">
+                Вы успешно зарегистрировались!
+            </div>
+
+            <div>
+                <label for="inputUsername" class="sr-only">Имя пользователя</label>
+
+                <input tabindex="1" id="inputUsername" type="text" name="username" class="form-control" placeholder="Имя пользователя" autofocus="true"/>
+            </div>
+
+            <div>
+                <label for="inputPassword" class="sr-only">Пароль</label>
+
+                <input tabindex="2" id="inputPassword" type="password" name="password" class="form-control" placeholder="Пароль"/>
+            </div>
+
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                Неверные имя пользователя и пароль!
+            </div>
+
+            <div class="checkbox mb-3">
+                <a tabindex="4" th:href="@{/auth/registration}">Регистрация</a>
+            </div>
+
+            <div>
+                <input tabindex="3" class="btn btn-lg btn-primary btn-block" type="submit" value="Войти"/>
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+        <title>Результаты</title>
+
+        <link href="#" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav th:replace="fragments :: navigation"></nav>
+
+        <div class="container" style="margin-top: 40px;">
+            <table class="table">
+                <caption>Результаты теста</caption>
+
+                <thead class="thead-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">Вопрос</th>
+                    <th scope="col">Результат</th>
+                </thead>
+
+                <tr th:each="result : ${results}"  th:class="${result[1]} eq 'ВЕРНО' ? 'table-success' : 'table-danger'">
+                    <th scope="row" th:text="${results.indexOf(result)} + 1">Numeration</th>
+                    <td th:text="${result[0]}">Question</td>
+                    <td th:text="${result[1]}">Result</td>
+                </tr>
+            </table>
+        </div>
+
+        <footer th:replace="fragments :: footer"></footer>
+    </body>
+</html>

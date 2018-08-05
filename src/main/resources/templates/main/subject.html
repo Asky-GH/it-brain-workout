@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
+    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+        <title th:text="${subjectTitle}">Title</title>
 
-        <title th:text="${subject.title}">Title</title>
+        <!-- Custom styles for this template -->
+        <link th:href="@{/css/form.css}" rel="stylesheet">
     </head>
 
-    <body>
-        <div th:if="${param.success}">
-            Вопрос успешно предложен!
-        </div>
+    <body class="text-center">
+        <nav th:replace="fragments :: navigation"></nav>
 
-        <div th:switch="${questionsCount}">
-            <div th:case="0">
-                <div>
-                    В данный момент по выбранному предмету нет вопросов! Примите участие в развитии проекта <a th:href="@{'/questions/' + ${subject.title} + '/new'}">предложив свои.</a>
-                </div>
+        <div th:switch="${#lists.size(questions)}" class="form-auth">
+            <div class="alert alert-info" role="alert" th:if="${param.success}">
+                Вопрос успешно предложен!
+            </div>
+
+            <div th:case="0" class="alert alert-warning" role="alert">
+                В данный момент по выбранному предмету нет вопросов! Примите участие в развитии проекта <a th:href="@{'/questions/' + ${subjectTitle} + '/new'}">предложив свои.</a>
             </div>
 
             <div th:case="*">
-                <p>Выберите количество вопросов, на которые хотите ответить (всего вопросов - <span th:text="${questionsCount}"></span>).</p>
+                <p>Выберите количество вопросов, на которые хотите ответить (всего вопросов - <span th:text="${#lists.size(questions)}"></span>).</p>
 
-                <form th:action="@{'/' + ${subject.title} + '/test'}" method="get">
-                    <label>Количество вопросов</label>
+                <form th:action="@{'/' + ${subjectTitle} + '/test'}" method="get">
+                    <label for="inputQuantity" class="sr-only">Количество вопросов</label>
 
-                    <input type="number" name="quantity" min="1" th:max="${questionsCount}" />
+                    <input tabindex="1" id="inputQuantity" type="number" name="quantity" class="form-control" min="1" th:max="${#lists.size(questions)}" placeholder="1" value="1" autofocus="true"/>
 
-                    <input type="submit" value="Начать"/>
+                    </br>
+
+                    <input tabindex="2" class="btn btn-lg btn-primary btn-block" type="submit" value="Начать"/>
                 </form>
 
                 <div>
-                    Решили все вопросы? <a th:href="@{'/questions/' + ${subject.title} + '/new'}">Предложите свои.</a>
+                    Решили все вопросы? <a tabindex="3" th:href="@{'/questions/' + ${subjectTitle} + '/new'}">Предложите свои.</a>
                 </div>
             </div>
         </div>
+
+        <footer th:replace="fragments :: footer"></footer>
     </body>
 </html>

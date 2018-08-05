@@ -34,13 +34,13 @@ public class QuestionController {
     @GetMapping("/{subjectTitle}/new")
     public String getNewQuestionForm(@PathVariable String subjectTitle, Model model, NewQuestionForm newQuestionForm){
         model.addAttribute("subjectTitle", subjectTitle);
-        return "offers/new-question";
+        return "supplement/new-question";
     }
 
     @PostMapping("/{subjectTitle}/new")
     public String createQuestion(@Valid NewQuestionForm newQuestionForm, BindingResult bindingResult, @PathVariable String subjectTitle, @RequestParam String answers){
         if (bindingResult.hasErrors()){
-            return "offers/new-question";
+            return "supplement/new-question";
         }
 
         Set<String> answersBodies = new HashSet<>();
@@ -50,7 +50,7 @@ public class QuestionController {
         answersBodies.add(newQuestionForm.getAnswer4());
         if (answersBodies.size() != 4){
             bindingResult.addError(new ObjectError("newQuestionForm", "Ответы должны быть разными!"));
-            return "offers/new-question";
+            return "supplement/new-question";
         }
 
         Question question = new Question();

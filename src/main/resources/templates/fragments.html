@@ -19,7 +19,7 @@
 
     <body>
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navigation">
+        <nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navigation">
             <a class="navbar-brand" th:href="@{/}">IT Brain Workout</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,18 +62,6 @@
                 </ul>
             </div>
         </nav>
-
-        <!-- Errors -->
-        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('all')}" th:errors="*{all}" th:fragment="errors">Error</div>
-
-        <!-- Buttons -->
-        <div th:fragment="submit">
-            <button type="submit" class="btn btn-primary" th:text="${submit}">Submit</button>
-        </div>
-
-        <div th:fragment="reject">
-            <button type="submit" class="btn btn-primary" th:text="${reject}">Submit</button>
-        </div>
 
         <!-- Footer -->
         <footer class="footer" th:fragment="footer">

@@ -5,10 +5,12 @@
         <title>Вход</title>
 
         <!-- Custom styles for this template -->
-        <link th:href="@{/css/auth.css}" rel="stylesheet">
+        <link th:href="@{/css/form.css}" rel="stylesheet">
     </head>
 
     <body class="text-center">
+        <nav th:replace="fragments :: navigation"></nav>
+
         <form class="form-auth" th:action="@{/login}" method="post">
             <div class="alert alert-info" role="alert" th:if="${param.logout}">
                 Вы успешно вышли!
@@ -42,5 +44,7 @@
                 <input tabindex="3" class="btn btn-lg btn-primary btn-block" type="submit" value="Войти"/>
             </div>
         </form>
+
+        <footer th:replace="fragments :: footer"></footer>
     </body>
 </html>

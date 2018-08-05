@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-
+    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
         <title th:text="'Тест по ' + ${subjectTitle}">Title</title>
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{/css/test.css}" rel="stylesheet">
     </head>
 
     <body>
-        <div th:each="question : ${questions}">
-            <p th:text="${question.body}">Question body</p>
-            <p th:each="answer : ${question.answers}" th:text="${answer.body}">Answer body</p>
+        <div class="container">
+            <div class="container-questions">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form id="assessment" method="post" th:action="@{'/' + ${subjectTitle} + '/test'}">
+                            <div class="panel panel-default" th:each="num: ${#numbers.sequence(0,#lists.size(questions) - 1)}">
+                                <div class="panel-heading">
+                                    <h3 class="panel-heading" th:text="'Вопрос ' + ${num + 1}">Question number</h3>
+                                </div>
+
+                                <div class="panel-body">
+                                    <div th:text="${#arrays.toArray(questions)[num].body}">Question body</div><hr />
+                                </div>
+
+                                <div class="radio" th:each="answer : ${#arrays.toArray(questions)[num].answers}">
+                                    <input type="radio" th:name="${#arrays.toArray(questions)[num].id}" th:value="${answer.id}"/>
+
+                                    <div class="answer_container">
+                                        <div th:text="${answer.body}">Answer body</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group pull-right">
+                                    <input type="hidden" name="quantity" th:value="${#lists.size(questions)}"/>
+
+                                    <button id="submit_button" class=" btn btn-primary" type="submit">Завершить тест</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

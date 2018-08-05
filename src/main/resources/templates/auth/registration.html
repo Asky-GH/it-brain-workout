@@ -5,10 +5,12 @@
         <title>Регистрация</title>
 
         <!-- Custom styles for this template -->
-        <link th:href="@{/css/auth.css}" rel="stylesheet">
+        <link th:href="@{/css/form.css}" rel="stylesheet">
     </head>
 
     <body class="text-center">
+        <nav th:replace="fragments :: navigation"></nav>
+
         <form class="form-auth" th:action="@{/auth/registration}" method="post" th:object="${registrationForm}">
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username errors</div>
 
@@ -38,5 +40,7 @@
                 <input tabindex="4" class="btn btn-lg btn-primary btn-block" type="submit" value="Зарегистрироваться"/>
             </div>
         </form>
+
+        <footer th:replace="fragments :: footer"></footer>
     </body>
 </html>

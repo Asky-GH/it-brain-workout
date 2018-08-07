@@ -1,48 +1,46 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: template(~{::title}, ~{::section})}">
+    <head>
         <title th:text="'Тест по ' + ${subjectTitle}">Title</title>
-
-        <!-- Custom styles for this template -->
-        <link th:href="@{/css/test.css}" rel="stylesheet">
     </head>
 
     <body>
-        <div class="container">
-            <div class="container-questions">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <form id="assessment" method="post" th:action="@{'/' + ${subjectTitle} + '/test'}">
-                            <div class="panel panel-default" th:each="num: ${#numbers.sequence(0,#lists.size(questions) - 1)}">
-                                <div class="panel-heading">
-                                    <h3 class="panel-heading" th:text="'Вопрос ' + ${num + 1}">Question number</h3>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                        <form method="post" th:action="@{'/' + ${subjectTitle} + '/test'}">
+                            <div class="panel" th:each="num: ${#numbers.sequence(0,#lists.size(questions) - 1)}">
+                                <p class="panel-heading" th:text="'Вопрос ' + ${num + 1}">Question number</p>
+
+                                <div class="panel-block">
+                                    <p th:text="${#arrays.toArray(questions)[num].body}">Question body</p>
                                 </div>
 
-                                <div class="panel-body">
-                                    <div th:text="${#arrays.toArray(questions)[num].body}">Question body</div><hr />
-                                </div>
-
-                                <div class="radio" th:each="answer : ${#arrays.toArray(questions)[num].answers}">
-                                    <input type="radio" th:name="${#arrays.toArray(questions)[num].id}" th:value="${answer.id}"/>
-
-                                    <div class="answer_container">
-                                        <div th:text="${answer.body}">Answer body</div>
+                                <div class="panel-block">
+                                    <div class="field">
+                                        <div class="control" th:each="answer : ${#arrays.toArray(questions)[num].answers}">
+                                            <label class="radio">
+                                                <input type="radio" checked="true" th:name="${#arrays.toArray(questions)[num].id}" th:value="${answer.id}"/>
+                                                <span th:text="${answer.body}">Answer body</span>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12">
-                                <div class="form-group pull-right">
+                            <div class="field">
+                                <div class="control">
                                     <input type="hidden" name="quantity" th:value="${#lists.size(questions)}"/>
 
-                                    <button id="submit_button" class=" btn btn-primary" type="submit">Завершить тест</button>
+                                    <input class="button is-fullwidth is-primary" type="submit" value="Завершить тест"/>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </body>
 </html>

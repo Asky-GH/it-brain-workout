@@ -1,104 +1,104 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: template(~{::title}, ~{::section})}">
+    <head>
         <title>Новый вопрос</title>
-
-        <!-- Custom styles for this template -->
-        <link th:href="@{/css/form.css}" rel="stylesheet">
     </head>
 
-    <body class="text-center">
-        <nav th:replace="fragments :: navigation"></nav>
+    <body>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                        <form method="post" th:action="@{'/questions/' + ${subjectTitle} + '/new'}" th:object="${newQuestionForm}">
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control has-icons-left has-icons-right">
+                                            <textarea tabindex="1" placeholder="Вопрос" autofocus="true" th:field="*{question}" th:class="${#fields.hasErrors('question')} ? 'textarea is-danger' : 'textarea'"></textarea>
+                                        </div>
 
-        <form style="max-width: 660px" class="form-auth" th:action="@{'/questions/' + ${subjectTitle} + '/new'}" method="post" th:object="${newQuestionForm}">
-            <table>
-                <!-- question -->
-                <tr>
-                    <td></td>
-                    <td>
-                        <textarea tabindex="1" rows="5" cols="50" th:field="*{question}" class="form-control" placeholder="Вопрос" autofocus="true"></textarea>
-                    </td>
-                </tr>
+                                        <p class="help is-danger" th:if="${#fields.hasErrors('question')}" th:errors="*{question}">Question error</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                <tr th:if="${#fields.hasErrors('question')}">
-                    <td colspan="2" class="alert alert-danger" role="alert" th:errors="*{question}">question errors</td>
-                </tr>
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="radio">
+                                                <input type="radio" name="answers" value="answer1" checked="true"/>
+                                                Правильный ответ
+                                            </label>
 
-                <!-- answer1 -->
-                <tr>
-                    <td>
-                        <input type="radio" name="answers" value="answer1" checked="true"/>
-                    </td>
-                    <td>
-                        <textarea tabindex="2" rows="5" cols="50" th:field="*{answer1}" class="form-control" placeholder="Ответ"></textarea>
-                    </td>
-                </tr>
+                                            <textarea tabindex="2" placeholder="Ответ" th:field="*{answer1}" th:class="${#fields.hasErrors('answer1')} ? 'textarea is-danger' : 'textarea'"></textarea>
+                                        </div>
 
-                <tr th:if="${#fields.hasErrors('answer1')}">
-                    <td colspan="2" th:errors="*{answer1}" class="alert alert-danger" role="alert">answer1 errors</td>
-                </tr>
+                                        <p class="help is-danger" th:if="${#fields.hasErrors('answer1')}" th:errors="*{answer1}">Answer1 error</p>
+                                    </div>
+                                </div>
 
-                <!-- answer2 -->
-                <tr>
-                    <td>
-                        <input type="radio" name="answers" value="answer2"/>
-                    </td>
-                    <td>
-                        <textarea tabindex="3" rows="5" cols="50" th:field="*{answer2}" class="form-control" placeholder="Ответ"></textarea>
-                    </td>
-                </tr>
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="radio">
+                                                <input type="radio" name="answers" value="answer2"/>
+                                                Правильный ответ
+                                            </label>
 
-                <tr th:if="${#fields.hasErrors('answer2')}">
-                    <td colspan="2" th:errors="*{answer2}" class="alert alert-danger" role="alert">answer2 errors</td>
-                </tr>
+                                            <textarea tabindex="3" placeholder="Ответ" th:field="*{answer2}" th:class="${#fields.hasErrors('answer2')} ? 'textarea is-danger' : 'textarea'"></textarea>
+                                        </div>
 
-                <!-- answer3 -->
-                <tr>
-                    <td>
-                        <input type="radio" name="answers" value="answer3"/>
-                    </td>
-                    <td>
-                        <textarea tabindex="4" rows="5" cols="50" th:field="*{answer3}" class="form-control" placeholder="Ответ"></textarea>
-                    </td>
-                </tr>
+                                        <p class="help is-danger" th:if="${#fields.hasErrors('answer2')}" th:errors="*{answer2}">Answer2 error</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                <tr th:if="${#fields.hasErrors('answer3')}">
-                    <td colspan="2" th:errors="*{answer3}" class="alert alert-danger" role="alert">answer3 errors</td>
-                </tr>
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="radio">
+                                                <input type="radio" name="answers" value="answer3"/>
+                                                Правильный ответ
+                                            </label>
+                                            <textarea tabindex="4" placeholder="Ответ" th:field="*{answer3}" th:class="${#fields.hasErrors('answer3')} ? 'textarea is-danger' : 'textarea'"></textarea>
+                                        </div>
 
-                <!-- answer4 -->
-                <tr>
-                    <td>
-                        <input type="radio" name="answers" value="answer4"/>
-                    </td>
-                    <td>
-                        <textarea tabindex="5" rows="5" cols="50" th:field="*{answer4}" class="form-control" placeholder="Ответ"></textarea>
-                    </td>
-                </tr>
+                                        <p class="help is-danger" th:if="${#fields.hasErrors('answer3')}" th:errors="*{answer3}">Answer3 error</p>
+                                    </div>
+                                </div>
 
-                <tr th:if="${#fields.hasErrors('answer4')}">
-                    <td colspan="2" th:errors="*{answer4}" class="alert alert-danger" role="alert">answer4 errors</td>
-                </tr>
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="radio">
+                                                <input type="radio" name="answers" value="answer4"/>
+                                                Правильный ответ
+                                            </label>
 
-                <tr th:if="${#fields.hasErrors('global')}" >
-                    <td colspan="2"class="alert alert-danger" role="alert" th:errors="*{global}">global errors</td>
-                </tr>
+                                            <textarea tabindex="5" placeholder="Ответ" th:field="*{answer4}" th:class="${#fields.hasErrors('answer4')} ? 'textarea is-danger' : 'textarea'"></textarea>
+                                        </div>
 
-                <!-- warning -->
-                <tr>
-                    <td colspan="2" class="alert alert-warning" role="alert">Перед нажатием на кнопку "Предложить", отметьте правильный ответ!</td>
-                </tr>
+                                        <p class="help is-danger" th:if="${#fields.hasErrors('answer4')}" th:errors="*{answer4}">Answer4 error</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                <!-- button -->
-                <tr>
-                    <td colspan="2">
-                        <input tabindex="6" class="btn btn-lg btn-primary btn-block" type="submit" value="Предложить"/>
-                    </td>
-                </tr>
-            </table>
-        </form>
-
-        <footer th:replace="fragments :: footer"></footer>
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input tabindex="6" class="button is-fullwidth is-primary" type="submit" value="Предложить"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </body>
 </html>

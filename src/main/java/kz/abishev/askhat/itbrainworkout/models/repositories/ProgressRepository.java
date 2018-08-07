@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ProgressRepository extends CrudRepository<Progress, Long> {
     Iterable<Progress> findByUserAndSubject(User user, Subject subject);
+    Iterable<Progress> findByUser(User user);
 }

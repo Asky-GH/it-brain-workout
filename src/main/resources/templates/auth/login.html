@@ -1,50 +1,63 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: template(~{::title}, ~{::section})}">
+    <head>
         <title>Вход</title>
-
-        <!-- Custom styles for this template -->
-        <link th:href="@{/css/form.css}" rel="stylesheet">
     </head>
 
-    <body class="text-center">
-        <nav th:replace="fragments :: navigation"></nav>
+    <body>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-4 is-offset-4 has-text-centered">
+                        <form method="post" th:action="@{/login}">
+                            <div class="notification is-success" th:if="${param.logout}">
+                                Вы успешно вышли!
+                            </div>
 
-        <form class="form-auth" th:action="@{/login}" method="post">
-            <div class="alert alert-info" role="alert" th:if="${param.logout}">
-                Вы успешно вышли!
+                            <div class="notification is-success" th:if="${param.success}">
+                                Вы успешно зарегистрировались!
+                            </div>
+
+                            <div class="field">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input tabindex="1" type="text" name="username" placeholder="Имя пользователя" autofocus="true" th:class="${param.error} ? 'input is-danger' : 'input'"/>
+
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+
+                                    <span class="icon is-small is-right" th:if="${param.error}">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input tabindex="2" type="password" name="password" placeholder="Пароль" th:class="${param.error} ? 'input is-danger' : 'input'"/>
+
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+
+                                    <span class="icon is-small is-right" th:if="${param.error}">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                </div>
+
+                                <p class="help is-danger" th:if="${param.error}">Неверные имя пользователя и пароль!</p>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input tabindex="3" class="button is-fullwidth is-primary" type="submit" value="Войти"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-            <div class="alert alert-info" role="alert" th:if="${param.success}">
-                Вы успешно зарегистрировались!
-            </div>
-
-            <div>
-                <label for="inputUsername" class="sr-only">Имя пользователя</label>
-
-                <input tabindex="1" id="inputUsername" type="text" name="username" class="form-control" placeholder="Имя пользователя" autofocus="true"/>
-            </div>
-
-            <div>
-                <label for="inputPassword" class="sr-only">Пароль</label>
-
-                <input tabindex="2" id="inputPassword" type="password" name="password" class="form-control" placeholder="Пароль"/>
-            </div>
-
-            <div class="alert alert-danger" role="alert" th:if="${param.error}">
-                Неверные имя пользователя и пароль!
-            </div>
-
-            <div class="checkbox mb-3">
-                <a tabindex="4" th:href="@{/auth/registration}">Регистрация</a>
-            </div>
-
-            <div>
-                <input tabindex="3" class="btn btn-lg btn-primary btn-block" type="submit" value="Войти"/>
-            </div>
-        </form>
-
-        <footer th:replace="fragments :: footer"></footer>
+        </section>
     </body>
 </html>

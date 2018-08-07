@@ -9,10 +9,10 @@ import javax.validation.constraints.Size;
 public class RegistrationForm {
 
     @NotBlank(message = "Введите имя пользователя!")
-    @Size(min = 2, max = 255, message = "Имя пользователя не должно быть меньше 2 символов, а также не может превышать 255 символов!")
+    @Size(min = 2, max = 255, message = "Имя пользователя не должно быть меньше 2 символов!")
     private String username;
     @NotBlank(message = "Введите пароль!")
-    @Size(min = 6, max = 255, message = "Пароль не должен быть меньше 6 символов, а также не может превышать 255 символов!")
+    @Size(min = 6, max = 255, message = "Пароль не должен быть меньше 6 символов!")
     private String password;
     private String password_confirm;
 

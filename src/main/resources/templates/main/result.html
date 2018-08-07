@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: template(~{::title}, ~{::section})}">
+    <head>
         <title>Результаты</title>
-
-        <link href="#" rel="stylesheet">
     </head>
 
     <body>
-        <nav th:replace="fragments :: navigation"></nav>
+        <section class="section">
+            <div class="container">
+                <table class="table is-striped is-fullwidth">
+                    <thead>
+                        <tr class="is-selected">
+                            <th>#</th>
+                            <th>Вопрос</th>
+                            <th>Результат</th>
+                        </tr>
+                    </thead>
 
-        <div class="container" style="margin-top: 40px;">
-            <table class="table">
-                <caption>Результаты теста</caption>
+                    <tfoot>
+                        <tr class="is-selected">
+                            <th>#</th>
+                            <th>Вопрос</th>
+                            <th>Результат</th>
+                        </tr>
+                    </tfoot>
 
-                <thead class="thead-dark">
-                    <th scope="col">#</th>
-                    <th scope="col">Вопрос</th>
-                    <th scope="col">Результат</th>
-                </thead>
-
-                <tr th:each="result : ${results}"  th:class="${result[1]} eq 'ВЕРНО' ? 'table-success' : 'table-danger'">
-                    <th scope="row" th:text="${results.indexOf(result)} + 1">Numeration</th>
-                    <td th:text="${result[0]}">Question</td>
-                    <td th:text="${result[1]}">Result</td>
-                </tr>
-            </table>
-        </div>
-
-        <footer th:replace="fragments :: footer"></footer>
+                    <tbody>
+                        <tr th:each="result : ${results}"  th:class="${result[1]} eq 'ВЕРНО' ? 'has-background-success' : 'has-background-danger'">
+                            <th th:text="${results.indexOf(result)} + 1">Numeration</th>
+                            <td th:text="${result[0]}">Question</td>
+                            <td th:text="${result[1]}">Result</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </body>
 </html>

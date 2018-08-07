@@ -1,46 +1,73 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{fragments :: head(~{::title}, ~{::link})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: template(~{::title}, ~{::section})}">
+    <head>
         <title>Регистрация</title>
-
-        <!-- Custom styles for this template -->
-        <link th:href="@{/css/form.css}" rel="stylesheet">
     </head>
 
-    <body class="text-center">
-        <nav th:replace="fragments :: navigation"></nav>
+    <body>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-4 is-offset-4 has-text-centered">
+                        <form method="post" th:action="@{/auth/registration}" th:object="${registrationForm}">
+                            <div class="field">
+                                <div class="control">
+                                    <div id="usernameControl" class="control has-icons-left has-icons-right">
+                                        <input id="username" tabindex="1" type="text" placeholder="Имя пользователя" autofocus="true" th:field="*{username}" th:class="${#fields.hasErrors('username')} ? 'input is-danger' : 'input'"/>
 
-        <form class="form-auth" th:action="@{/auth/registration}" method="post" th:object="${registrationForm}">
-            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username errors</div>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-user"></i>
+                                        </span>
 
-            <div>
-                <label for="inputUsername" class="sr-only">Имя пользователя</label>
+                                        <span class="icon is-small is-right" th:if="${#fields.hasErrors('username')}">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </span>
+                                    </div>
+                                </div>
 
-                <input tabindex="1" id="inputUsername" type="text" th:field="*{username}" class="form-control" placeholder="Имя пользователя" autofocus="true"/>
+                                <p class="help is-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</p>
+                            </div>
+
+                            <div class="field">
+                                <div id="passwordControl" class="control has-icons-left has-icons-right">
+                                    <input id="password" tabindex="2" type="password" placeholder="Пароль" th:field="*{password}" th:class="${#fields.hasErrors('password')} ? 'input is-danger' : 'input'"/>
+
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+
+                                    <span class="icon is-small is-right" th:if="${#fields.hasErrors('password')}">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                </div>
+
+                                <p class="help is-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</p>
+                            </div>
+
+                            <div class="field">
+                                <div id="confirmControl" class="control has-icons-left has-icons-right">
+                                    <input id="confirm" tabindex="3" type="password" placeholder="Подтверждение пароля" th:field="*{password_confirm}" th:class="${#fields.hasErrors('password')} ? 'input is-danger' : 'input'"/>
+
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+
+                                    <span class="icon is-small is-right" th:if="${#fields.hasErrors('password')}">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                </div>
+
+                                <p id="global" class="help is-danger" th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Global error</p>
+                            </div>
+
+                            <div>
+                                <input tabindex="4" class="button is-fullwidth is-primary" type="submit" value="Зарегистрироваться"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <label for="inputPassword" class="sr-only">Пароль</label>
-
-                <input tabindex="2" id="inputPassword" type="password" th:field="*{password}" class="form-control" placeholder="Пароль"/>
-
-                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password errors</div>
-            </div>
-
-            <div>
-                <label for="inputPasswordConfirm" class="sr-only">Подтверждение пароля</label>
-
-                <input tabindex="3" id="inputPasswordConfirm" type="password" th:field="*{password_confirm}" class="form-control" placeholder="Подтверждение пароля"/>
-
-                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('global')}" th:errors="*{global}">global errors</div>
-            </div>
-
-            <div>
-                <input tabindex="4" class="btn btn-lg btn-primary btn-block" type="submit" value="Зарегистрироваться"/>
-            </div>
-        </form>
-
-        <footer th:replace="fragments :: footer"></footer>
+        </section>
     </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: template(~{::title}, ~{::section})}">
+    <head>
+        <title>Пользователи</title>
+    </head>
+
+    <body>
+        <section class="section">
+            <div class="container">
+                <table class="table is-striped is-fullwidth">
+                    <thead>
+                        <tr class="is-selected">
+                            <th>#</th>
+                            <th>Имя пользователь</th>
+                            <th colspan="3">Управление пользователями</th>
+                        </tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr class="is-selected">
+                            <th>#</th>
+                            <th>Имя пользователь</th>
+                            <th colspan="3">Управление пользователями</th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${users.indexOf(user)} + 1">Numeration</td>
+                            <td th:text="${user.username}">Username</td>
+                            <td>
+                                <form method="post" th:action="@{/users}">
+                                    <input type="hidden" name="action" th:value="${#sets.contains(user.roles, roleAdmin)? 'removeAdmin' : 'grantAdmin'}"/>
+                                    <input type="hidden" name="username" th:value="${user.username}"/>
+                                    <input type="submit" value="ADMIN" th:class="${#sets.contains(user.roles, roleAdmin)? 'button is-danger' : 'button'}"/>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" th:action="@{/users}">
+                                    <input type="hidden" name="action" th:value="${#sets.contains(user.roles, roleModer)? 'removeModer' : 'grantModer'}"/>
+                                    <input type="hidden" name="username" th:value="${user.username}"/>
+                                    <input type="submit" value="MODER" th:class="${#sets.contains(user.roles, roleModer)? 'button is-warning' : 'button'}"/>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" th:action="@{/users}">
+                                    <input type="hidden" name="action" value="removeUser"/>
+                                    <input type="hidden" name="username" th:value="${user.username}"/>
+                                    <input type="submit" value="USER" class="button is-success"/>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </body>
+</html>

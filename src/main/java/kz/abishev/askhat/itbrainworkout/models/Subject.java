@@ -11,7 +11,7 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private byte id;
+    private int id;
     @Column(nullable = false, length = 50)
     private String title;
 }

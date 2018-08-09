@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="columns">
                     <div class="column">
-                        <div class="notification has-text-centered is-primary">
+                        <div class="notification has-text-centered is-warning">
                             <h1 class="title">IT Brain Workout</h1>
                             <h2 class="subtitle">Добро пожаловать на сайт IT Brain Workout! Оттачивайте свои знания программирования, а также помогайте другим в этом увлекательном занятии.</h2>
                         </div>
@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="columns is-mobile">
-                    <div class="column is-4" th:each="subject : ${subjects}">
+                    <div class="column is-3" th:each="subject : ${subjects}">
                         <figure class="image">
                             <a th:href="@{/subjects/} + ${subject.title}">
                                 <img th:src="@{'/images/' + ${#strings.toLowerCase(subject.title)} + '.png'}" th:alt="${subject.title} + ' image'">
@@ -26,7 +26,7 @@
                         </figure>
                     </div>
 
-                    <div class="column is-4" th:if="${#httpServletRequest.remoteUser ne null}">
+                    <div class="column is-3" th:if="${#httpServletRequest.remoteUser eq 'admin'}">
                         <figure class="image">
                             <a th:href="@{/subjects/new}">
                                 <img src="/images/add.png" alt="Add new subject image">

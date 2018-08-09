@@ -23,7 +23,7 @@ CREATE TABLE results (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE subjects (
-  id tinyint(4) NOT NULL AUTO_INCREMENT,
+  id int(11) NOT NULL AUTO_INCREMENT,
   title varchar(50) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -46,7 +46,7 @@ CREATE TABLE questions (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   body longtext NOT NULL,
   status_id tinyint(4) NOT NULL,
-  subject_id tinyint(4) NOT NULL,
+  subject_id int(11) NOT NULL,
   PRIMARY KEY (id),
   KEY STATUS_ID_FK (status_id),
   KEY SUBJECT_ID_FK (subject_id)
@@ -71,7 +71,7 @@ CREATE TABLE progresses (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   question_id bigint(20) NOT NULL,
   result_id tinyint(4) NOT NULL,
-  subject_id tinyint(4) NOT NULL,
+  subject_id int(11) NOT NULL,
   user_id bigint(20) NOT NULL,
   PRIMARY KEY (id),
   KEY QUESTION_ID_FK (question_id),

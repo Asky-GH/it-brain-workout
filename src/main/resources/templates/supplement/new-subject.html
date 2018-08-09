@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: template(~{::title}, ~{::section})}">
+    <head>
+        <title>Новый предмет</title>
+    </head>
+
+    <body>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-4 is-offset-4">
+                        <form method="post" th:action="@{/subjects/new}">
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input tabindex="1" class="input" name="subjectTitle" placeholder="Название предмета" autofocus="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input tabindex="2" class="button is-fullwidth is-info" type="submit" value="Создать"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -10,6 +10,10 @@
             <div class="container">
                 <div class="columns">
                     <div class="column is-8 is-offset-2">
+                        <div class="notification is-warning has-text-centered">
+                            Так как каждый предложеный вопрос проверяется модераторами сайта, он не сразу появится в тестах.
+                        </div>
+
                         <form method="post" th:action="@{'/questions/' + ${subjectTitle} + '/new'}" th:object="${newQuestionForm}">
                             <div class="columns">
                                 <div class="column">
@@ -90,7 +94,7 @@
                                 <div class="column">
                                     <div class="field">
                                         <div class="control">
-                                            <input tabindex="6" class="button is-fullwidth is-primary" type="submit" value="Предложить"/>
+                                            <input tabindex="6" class="button is-fullwidth is-info" type="submit" value="Предложить"/>
                                         </div>
                                     </div>
                                 </div>

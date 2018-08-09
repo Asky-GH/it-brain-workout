@@ -21,10 +21,29 @@ public class MainController {
     private SubjectRepository subjectRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
+    @Autowired
+    private StatusRepository statusRepository;
 
     @GetMapping("")
     public String getMainPage(Model model){
-        model.addAttribute("subjects", subjectRepository.findAll());
+        List<Subject[]> data = new ArrayList<>();
+        List<Subject> subjects = new ArrayList<>();
+        subjectRepository.findAll().forEach(subjects::add);
+        for (Subject subject : subjects){
+            List<Question> pendingQuestions = new ArrayList<>();
+            questionRepository.findBySubjectAndStatus(subject, statusRepository.findById(new Byte("2")).get()).forEach(pendingQuestions::add);
+            if (pendingQuestions.size() > 0){
+                data.add(new Subject[]{subject, subject});
+            }
+            else {
+                data.add(new Subject[]{subject});
+            }
+        }
+
+//        model.addAttribute("subjects", subjectRepository.findAll());
+        model.addAttribute("data", data);
         return "main/main";
     }
 

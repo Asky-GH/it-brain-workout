@@ -17,7 +17,7 @@ import java.util.List;
 public class SubjectController {
 
     @Autowired
-    SubjectRepository subjectRepository;
+    private SubjectRepository subjectRepository;
 
     @GetMapping("/{subjectTitle}")
     public String getSubjectPage(@PathVariable String subjectTitle, Model model, HttpServletRequest request){

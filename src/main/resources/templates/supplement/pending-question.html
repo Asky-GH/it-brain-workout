@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: template(~{::title}, ~{::section})}">
+    <head>
+        <title>Новый вопрос</title>
+    </head>
+
+    <body>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                        <form method="post" th:action="@{'/questions/' + ${subjectTitle} + '/pending'}">
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input type="hidden" name="questionId" th:value="${question.id}"/>
+                                            <textarea autofocus="true" class="textarea" readonly="true" th:text="${question.body}"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="radio" th:if="${#arrays.toArray(question.answers)[0].type.title == 'RIGHT'}">
+                                                <input type="radio" checked="true"/>
+                                                Правильный ответ
+                                            </label>
+
+                                            <textarea class="textarea" readonly="true" th:text="${#arrays.toArray(question.answers)[0].body}"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="radio" th:if="${#arrays.toArray(question.answers)[1].type.title == 'RIGHT'}">
+                                                <input type="radio" checked="true"/>
+                                                Правильный ответ
+                                            </label>
+
+                                            <textarea class="textarea" readonly="true" th:text="${#arrays.toArray(question.answers)[1].body}"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="radio" th:if="${#arrays.toArray(question.answers)[2].type.title == 'RIGHT'}">
+                                                <input type="radio" checked="true"/>
+                                                Правильный ответ
+                                            </label>
+                                            <textarea class="textarea" readonly="true" th:text="${#arrays.toArray(question.answers)[2].body}"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <label class="radio" th:if="${#arrays.toArray(question.answers)[3].type.title == 'RIGHT'}">
+                                                <input type="radio" checked="true"/>
+                                                Правильный ответ
+                                            </label>
+
+                                            <textarea class="textarea" readonly="true" th:text="${#arrays.toArray(question.answers)[3].body}"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="button is-fullwidth is-info" type="submit" value="Одобрить" name="action"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="button is-fullwidth is-info" type="submit" value="Отклонить" name="action"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

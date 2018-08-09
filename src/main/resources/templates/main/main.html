@@ -18,12 +18,28 @@
                 </div>
 
                 <div class="columns is-mobile">
-                    <div class="column is-3" th:each="subject : ${subjects}">
+                    <!--<div class="column is-3" th:each="subject : ${subjects}">-->
+                        <!--<figure class="image">-->
+                            <!--<a th:href="@{/subjects/} + ${subject.title}">-->
+                                <!--<img th:src="@{'/images/' + ${#strings.toLowerCase(subject.title)} + '.png'}" th:alt="${subject.title} + ' image'">-->
+                            <!--</a>-->
+                        <!--</figure>-->
+
+                        <!--<a class="tag is-danger is-rounded" th:href="@{'/questions/' + ${subject.title} + '/pending'}" th:if="${#httpServletRequest.isUserInRole('MODER') and }">-->
+                            <!--Новые-->
+                        <!--</a>-->
+                    <!--</div>-->
+
+                    <div class="column is-3" th:each="d : ${data}">
                         <figure class="image">
-                            <a th:href="@{/subjects/} + ${subject.title}">
-                                <img th:src="@{'/images/' + ${#strings.toLowerCase(subject.title)} + '.png'}" th:alt="${subject.title} + ' image'">
+                            <a th:href="@{/subjects/} + ${d[0].title}">
+                                <img th:src="@{'/images/' + ${#strings.toLowerCase(d[0].title)} + '.png'}" th:alt="${d[0].title} + ' image'">
                             </a>
                         </figure>
+
+                        <a class="tag is-danger is-rounded" th:href="@{'/questions/' + ${d[0].title} + '/pending'}" th:if="${#httpServletRequest.isUserInRole('MODER') and #arrays.length(d) == 2}">
+                            Новые
+                        </a>
                     </div>
 
                     <div class="column is-3" th:if="${#httpServletRequest.remoteUser eq 'admin'}">

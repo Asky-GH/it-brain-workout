@@ -2,10 +2,7 @@ package kz.abishev.askhat.itbrainworkout.controllers;
 
 import kz.abishev.askhat.itbrainworkout.models.Answer;
 import kz.abishev.askhat.itbrainworkout.models.Question;
-import kz.abishev.askhat.itbrainworkout.models.repositories.QuestionRepository;
-import kz.abishev.askhat.itbrainworkout.models.repositories.StatusRepository;
-import kz.abishev.askhat.itbrainworkout.models.repositories.SubjectRepository;
-import kz.abishev.askhat.itbrainworkout.models.repositories.TypeRepository;
+import kz.abishev.askhat.itbrainworkout.models.repositories.*;
 import kz.abishev.askhat.itbrainworkout.models.validations.NewQuestionForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +12,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -30,6 +29,8 @@ public class QuestionController {
     private StatusRepository statusRepository;
     @Autowired
     private TypeRepository typeRepository;
+    @Autowired
+    private AnswerRepository answerRepository;
 
     @GetMapping("/{subjectTitle}/new")
     public String getNewQuestionForm(@PathVariable String subjectTitle, Model model, NewQuestionForm newQuestionForm){
@@ -86,5 +87,28 @@ public class QuestionController {
         questionRepository.save(question);
 
         return "redirect:/subjects/" + subjectTitle + "?success";
+    }
+
+    @GetMapping("/{subjectTitle}/pending")
+    public String getPendingQuestion(@PathVariable String subjectTitle, Model model){
+        List<Question> pendingQuestions = new ArrayList<>();
+        questionRepository.findBySubjectAndStatus(subjectRepository.findByTitle(subjectTitle), statusRepository.findById(new Byte("2")).get()).forEach(pendingQuestions::add);
+        model.addAttribute("question", pendingQuestions.get(0));
+        return "supplement/pending-question";
+    }
+
+    @PostMapping("/{subjectTitle}/pending")
+    public String processPendingQuestion(@RequestParam String action, @RequestParam String questionId){
+        Question question = questionRepository.findById(Long.parseLong(questionId)).get();
+
+        if (action.equals("Отклонить")){
+            questionRepository.delete(question);
+        }
+        else {
+            question.setStatus(statusRepository.findById(new Byte("1")).get());
+            questionRepository.save(question);
+        }
+
+        return "redirect:/";
     }
 }

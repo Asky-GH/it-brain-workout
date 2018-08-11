@@ -11,7 +11,7 @@
                 <div class="columns">
                     <div class="column is-8 is-offset-2">
                         <form method="post" th:action="@{'/' + ${subjectTitle} + '/test'}">
-                            <div class="panel" th:each="num: ${#numbers.sequence(0,#lists.size(questions) - 1)}">
+                            <div class="panel" th:each="num : ${#numbers.sequence(0,#lists.size(questions) - 1)}">
                                 <p class="panel-heading" th:text="'Вопрос ' + ${num + 1}">Question number</p>
 
                                 <div class="panel-block">

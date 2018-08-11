@@ -1,18 +1,21 @@
 package kz.abishev.askhat.itbrainworkout.controllers;
 
+import antlr.StringUtils;
 import kz.abishev.askhat.itbrainworkout.models.Progress;
+import kz.abishev.askhat.itbrainworkout.models.Question;
+import kz.abishev.askhat.itbrainworkout.models.Subject;
 import kz.abishev.askhat.itbrainworkout.models.User;
-import kz.abishev.askhat.itbrainworkout.models.repositories.ProgressRepository;
-import kz.abishev.askhat.itbrainworkout.models.repositories.RoleRepository;
-import kz.abishev.askhat.itbrainworkout.models.repositories.UserRepository;
+import kz.abishev.askhat.itbrainworkout.models.repositories.*;
+import kz.abishev.askhat.itbrainworkout.models.validations.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 
+import javax.jws.WebParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +24,17 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
     @Autowired
-    ProgressRepository progressRepository;
+    private ProgressRepository progressRepository;
+    @Autowired
+    private SubjectRepository subjectRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
+    @Autowired
+    private StatusRepository statusRepository;
 
     @GetMapping("")
     public String getUsers(Model model){
@@ -64,5 +73,65 @@ public class UserController {
 
         userRepository.save(user);
         return "redirect:/users";
+    }
+
+    @GetMapping("/{username}")
+    public String getProfile(@PathVariable String username, Model model){
+        List<String[]> data = new ArrayList<>();
+
+        User user = userRepository.findByUsername(username);
+
+        List<Subject> subjects = new ArrayList<>();
+        subjectRepository.findAll().forEach(subjects::add);
+
+        for (Subject subject : subjects){
+            List<Progress> progresses = new ArrayList<>();
+            progressRepository.findByUserAndSubject(user, subject).forEach(progresses::add);
+            int solvedQuestions = 0;
+
+            for (Progress progress : progresses){
+                if (progress.getResult().getTitle().equals("CORRECT")){
+                    solvedQuestions++;
+                }
+            }
+
+            List<Question> totalQuestions = new ArrayList<>();
+            questionRepository.findBySubjectAndStatus(subject, statusRepository.findById(new Byte("1")).get()).forEach(totalQuestions::add);
+            if (totalQuestions.size() > 0){
+                data.add(new String[]{subject.getTitle(), String.valueOf(solvedQuestions), String.valueOf(totalQuestions.size())});
+            }
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("data", data);
+        return "supplement/profile";
+    }
+
+    @PostMapping("/{username}")
+    public String changePassword(@PathVariable String username, @RequestParam String action, @RequestParam String password, @RequestParam String confirm, @RequestParam String subjectTitle){
+        if (action.equals("Изменить")){
+            if (password == null || password.trim().isEmpty() || password.trim().length() < 6){
+                return "redirect:/users/" + username + "/?password";
+            }
+
+            if (!password.equals(confirm)){
+                return "redirect:/users/" + username + "/?confirm";
+            }
+
+            User user = userRepository.findByUsername(username);
+            user.setPassword(new BCryptPasswordEncoder().encode(password));
+            userRepository.save(user);
+
+            return "redirect:/users/" + username + "/?success";
+        }
+        else {
+            List<Progress> progresses = new ArrayList<>();
+            progressRepository.findByUserAndSubject(userRepository.findByUsername(username), subjectRepository.findByTitle(subjectTitle)).forEach(progresses::add);
+            for (Progress progress : progresses){
+                progressRepository.delete(progress);
+            }
+
+            return "redirect:/users/" + username;
+        }
     }
 }

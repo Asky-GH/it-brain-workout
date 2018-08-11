@@ -42,7 +42,6 @@ public class MainController {
             }
         }
 
-//        model.addAttribute("subjects", subjectRepository.findAll());
         model.addAttribute("data", data);
         return "main/main";
     }
@@ -60,7 +59,7 @@ public class MainController {
     public String postTest(@PathVariable String subjectTitle, @RequestParam String quantity, HttpServletRequest request, RedirectAttributes redirectAttributes){
         List<Question> questions = HelperMethods.getTestQuestions(subjectTitle, request, quantity);
         String username = request.getRemoteUser();
-        User user = new User();
+        User user;
 
         if (username != null){
             user = userRepository.findByUsername(username);

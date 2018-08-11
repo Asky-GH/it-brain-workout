@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: template(~{::title}, ~{::section})}">
+    <head>
+        <title th:text="${user.username}">Title</title>
+    </head>
+
+    <body>
+        <section class="section">
+            <div class="content">
+                <div class="columns">
+                    <div class="column is-4 is-offset-1">
+                        <form method="post" th:action="@{'/users/' + ${user.username}}">
+                            <div class="notification is-success" th:if="${param.success}">
+                                Пароль успешно изменен!
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <div class="control has-icons-left">
+                                        <input type="text" class="input" readonly="true" th:field="${user.username}"/>
+
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div id="passwordControl" class="control has-icons-left has-icons-right">
+                                    <input id="password" tabindex="1" type="password" placeholder="Новый пароль" autofocus="true" name="password" th:class="${param.password} ? 'input is-danger' : 'input'"/>
+
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+
+                                    <span class="icon is-small is-right" th:if="${param.password}">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                </div>
+
+                                <p class="help is-danger" th:if="${param.password}">Введите пароль! Пароль не должен быть меньше 6 символов!</p>
+                            </div>
+
+                            <div class="field">
+                                <div id="confirmControl" class="control has-icons-left has-icons-right">
+                                    <input id="confirm" tabindex="2" type="password" placeholder="Подтверждение пароля" name="confirm" th:class="${param.confirm} ? 'input is-danger' : 'input'"/>
+
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+
+                                    <span class="icon is-small is-right" th:if="${param.confirm}">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                </div>
+
+                                <p class="help is-danger" th:if="${param.confirm}">Пароли не совпадают!</p>
+                            </div>
+
+                            <div>
+                                <input type="hidden" name="subjectTitle"/>
+
+                                <input tabindex="3" class="button is-fullwidth is-info" type="submit" name="action" value="Изменить"/>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="column is-6">
+                        <div class="panel">
+                            <p class="panel-heading">Прогресс</p>
+
+                            <div class="panel-block" th:each="entry : ${data}">
+                                <p th:text="${entry[0]}"></p>
+
+                                <progress class="progress is-success" th:value="${entry[1]}" th:max="${entry[2]}"></progress>
+
+                                <form method="post" th:action="@{'/users/' + ${user.username}}">
+                                    <input type="hidden" name="subjectTitle" th:value="${entry[0]}"/>
+                                    <input type="hidden" name="password"/>
+                                    <input type="hidden" name="confirm"/>
+
+                                    <input tabindex="4" class="button is-info" type="submit" name="action" value="Сбросить"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

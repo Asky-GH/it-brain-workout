@@ -30,7 +30,7 @@
                         <p class="navbar-link" th:text="${#httpServletRequest.remoteUser}">Username</p>
 
                         <div class="navbar-dropdown is-boxed">
-                            <a class="navbar-item" th:href="@{'/users/' + ${#httpServletRequest.remoteUser} + '/profile'}">Профиль</a>
+                            <a class="navbar-item" th:href="@{'/users/' + ${#httpServletRequest.remoteUser}}">Профиль</a>
                             <a class="navbar-item" th:href="@{/users}" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">Пользователи</a>
                             <hr class="navbar-divider">
                             <a class="navbar-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выход</a>

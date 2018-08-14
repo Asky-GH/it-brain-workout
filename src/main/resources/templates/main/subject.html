@@ -15,7 +15,7 @@
                         </div>
 
                         <div class="notification is-warning" th:case="0">
-                            Решили все вопросы? Примите участие в развитии проекта <a th:href="@{'/questions/' + ${subjectTitle} + '/new'}">предложив свои.</a>
+                            Вопросы отсутствуют. Примите участие в развитии проекта <a th:href="@{'/questions/' + ${subjectTitle} + '/new'}">предложив свои.</a>
                         </div>
 
                         <form method="get" th:action="@{'/' + ${subjectTitle} + '/test'}" th:case="*">

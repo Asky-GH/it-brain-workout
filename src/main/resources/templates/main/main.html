@@ -17,20 +17,8 @@
                     </div>
                 </div>
 
-                <div class="columns is-mobile">
-                    <!--<div class="column is-3" th:each="subject : ${subjects}">-->
-                        <!--<figure class="image">-->
-                            <!--<a th:href="@{/subjects/} + ${subject.title}">-->
-                                <!--<img th:src="@{'/images/' + ${#strings.toLowerCase(subject.title)} + '.png'}" th:alt="${subject.title} + ' image'">-->
-                            <!--</a>-->
-                        <!--</figure>-->
-
-                        <!--<a class="tag is-danger is-rounded" th:href="@{'/questions/' + ${subject.title} + '/pending'}" th:if="${#httpServletRequest.isUserInRole('MODER') and }">-->
-                            <!--Новые-->
-                        <!--</a>-->
-                    <!--</div>-->
-
-                    <div class="column is-3" th:each="d : ${data}">
+                <div class="columns is-mobile" th:each="column : ${columns}">
+                    <div class="column is-3" th:each="d : ${column}">
                         <figure class="image">
                             <a th:href="@{/subjects/} + ${d[0].title}">
                                 <img th:src="@{'/images/' + ${#strings.toLowerCase(d[0].title)} + '.png'}" th:alt="${d[0].title} + ' image'">
@@ -42,7 +30,7 @@
                         </a>
                     </div>
 
-                    <div class="column is-3" th:if="${#httpServletRequest.remoteUser eq 'admin'}">
+                    <div class="column is-3" th:if="${#httpServletRequest.remoteUser eq 'admin' and columnStat.last}">
                         <figure class="image">
                             <a th:href="@{/subjects/new}">
                                 <img src="/images/add.png" alt="Add new subject image">

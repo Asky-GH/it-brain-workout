@@ -28,21 +28,40 @@ public class MainController {
 
     @GetMapping("")
     public String getMainPage(Model model){
-        List<Subject[]> data = new ArrayList<>();
         List<Subject> subjects = new ArrayList<>();
         subjectRepository.findAll().forEach(subjects::add);
+
+        int rows;
+        if (subjects.size() % 4 != 0){
+            rows = subjects.size() / 4 + 1;
+        }
+        else {
+            rows = subjects.size() / 4;
+        }
+        List<List<Subject[]>> columns = new ArrayList<>(rows);
+        int count = 1;
+        List<Subject[]> column = new ArrayList<>();
         for (Subject subject : subjects){
             List<Question> pendingQuestions = new ArrayList<>();
             questionRepository.findBySubjectAndStatus(subject, statusRepository.findById(new Byte("2")).get()).forEach(pendingQuestions::add);
             if (pendingQuestions.size() > 0){
-                data.add(new Subject[]{subject, subject});
+                column.add(new Subject[]{subject, subject});
+                count++;
             }
             else {
-                data.add(new Subject[]{subject});
+                column.add(new Subject[]{subject});
+                count++;
+            }
+            if (count == 5){
+                columns.add(column);
+                column = new ArrayList<>();
+                count = 1;
             }
         }
 
-        model.addAttribute("data", data);
+        columns.add(column);
+
+        model.addAttribute("columns", columns);
         return "main/main";
     }
 

@@ -30,7 +30,7 @@
                         </a>
                     </div>
 
-                    <div class="column is-3" th:if="${#httpServletRequest.remoteUser eq 'admin' and columnStat.last}">
+                    <div class="column is-3" th:if="${#httpServletRequest.isUserInRole('ADMIN') and columnStat.last}">
                         <figure class="image">
                             <a th:href="@{/subjects/new}">
                                 <img src="/images/add.png" alt="Add new subject image">

@@ -20,7 +20,7 @@
 
                         <form method="get" th:action="@{'/' + ${subjectTitle} + '/test'}" th:case="*">
                             <div class="notification is-warning">
-                                Выберите количество вопросов, на которые хотите ответить (всего вопросов - <span th:text="${#lists.size(questions)}"></span>).
+                                Выберите количество вопросов, на которые хотите ответить (всего вопросов - <span th:text="${#lists.size(questions)}"></span>). Примите участие в развитии проекта <a th:href="@{'/questions/' + ${subjectTitle} + '/new'}">предложив свои.</a>
                             </div>
 
                             <div class="field">

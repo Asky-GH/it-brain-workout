@@ -1,21 +1,16 @@
 package kz.abishev.askhat.itbrainworkout.controllers;
 
-import antlr.StringUtils;
 import kz.abishev.askhat.itbrainworkout.models.Progress;
 import kz.abishev.askhat.itbrainworkout.models.Question;
 import kz.abishev.askhat.itbrainworkout.models.Subject;
 import kz.abishev.askhat.itbrainworkout.models.User;
 import kz.abishev.askhat.itbrainworkout.models.repositories.*;
-import kz.abishev.askhat.itbrainworkout.models.validations.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
 import java.util.ArrayList;
 import java.util.List;
 

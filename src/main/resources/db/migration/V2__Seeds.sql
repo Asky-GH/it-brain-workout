@@ -69,6 +69,11 @@ INSERT INTO questions(id, body, status_id, subject_id) VALUES(7, 'Какое к�
 INSERT INTO questions(id, body, status_id, subject_id) VALUES(8, 'Что из нижеперечисленного не является принципом ООП?', 1, 1);
 INSERT INTO questions(id, body, status_id, subject_id) VALUES(9, 'Что из нижеперечисленного не является модификатором доступа?', 1, 1);
 INSERT INTO questions(id, body, status_id, subject_id) VALUES(10, 'Какое из нижеперечисленных ключевых слов используется для определения аннотации?', 1, 1);
+INSERT INTO questions(id, body, status_id, subject_id) VALUES(11, 'Как расшифровывается HTML?', 1, 2);
+INSERT INTO questions(id, body, status_id, subject_id) VALUES(12, 'Какое расширение должны иметь HTML документы?', 1, 2);
+INSERT INTO questions(id, body, status_id, subject_id) VALUES(13, 'Какой тег позволяет вставлять картинки в HTML документы?', 1, 2);
+INSERT INTO questions(id, body, status_id, subject_id) VALUES(14, 'Выберите ссылку с правильным синтаксисом.', 1, 2);
+INSERT INTO questions(id, body, status_id, subject_id) VALUES(15, 'С помощью какого тэга можно сделать текст жирным?', 1, 2);
 
 -- Каков размер данных типа char?
 INSERT INTO answers(id, body, type_id) VALUES(1, '16 бит', 2);
@@ -120,6 +125,31 @@ INSERT INTO answers(id, body, type_id) VALUES(37, '@interface', 1);
 INSERT INTO answers(id, body, type_id) VALUES(38, '@annotation', 2);
 INSERT INTO answers(id, body, type_id) VALUES(39, '@class', 2);
 INSERT INTO answers(id, body, type_id) VALUES(40, '@definition', 2);
+--Как расшифровывается HTML?
+INSERT INTO answers(id, body, type_id) VALUES(41, 'HyperThread Mask Language', 2);
+INSERT INTO answers(id, body, type_id) VALUES(42, 'HyperThread Markup Language', 2);
+INSERT INTO answers(id, body, type_id) VALUES(43, 'HyperText Mask Language', 2);
+INSERT INTO answers(id, body, type_id) VALUES(44, 'HyperText Markup Language', 1);
+--Какое расширение должны иметь HTML документы?
+INSERT INTO answers(id, body, type_id) VALUES(45, '.php или .asp', 2);
+INSERT INTO answers(id, body, type_id) VALUES(46, '.txt или .doc', 2);
+INSERT INTO answers(id, body, type_id) VALUES(47, '.doc', 2);
+INSERT INTO answers(id, body, type_id) VALUES(48, '.html или .htm', 1);
+--Какой тег позволяет вставлять картинки в HTML документы?
+INSERT INTO answers(id, body, type_id) VALUES(49, '<pic>', 2);
+INSERT INTO answers(id, body, type_id) VALUES(50, '<img>', 1);
+INSERT INTO answers(id, body, type_id) VALUES(51, '<picture>', 2);
+INSERT INTO answers(id, body, type_id) VALUES(52, '<image>', 2);
+--Выберите ссылку с правильным синтаксисом.
+INSERT INTO answers(id, body, type_id) VALUES(53, '<a href="http://www.wisdomweb.ru" value="wisdomweb.ru" />', 2);
+INSERT INTO answers(id, body, type_id) VALUES(54, '<a name="http://www.wisdomweb.ru">wisdomweb.ru</a>', 2);
+INSERT INTO answers(id, body, type_id) VALUES(55, '<a href="http://www.wisdomweb.ru">wisdomweb.ru</a>', 1);
+INSERT INTO answers(id, body, type_id) VALUES(56, '<a src="http://www.wisdomweb.ru">wisdomweb.ru</a>', 2);
+--С помощью какого тэга можно сделать текст жирным?
+INSERT INTO answers(id, body, type_id) VALUES(57, '<b>', 1);
+INSERT INTO answers(id, body, type_id) VALUES(58, '<i>', 2);
+INSERT INTO answers(id, body, type_id) VALUES(59, '<big>', 2);
+INSERT INTO answers(id, body, type_id) VALUES(60, '<h2>', 2);
 
 INSERT INTO questions_answers(question_id, answers_id) VALUES(1, 1);
 INSERT INTO questions_answers(question_id, answers_id) VALUES(1, 2);
@@ -161,3 +191,23 @@ INSERT INTO questions_answers(question_id, answers_id) VALUES(10, 37);
 INSERT INTO questions_answers(question_id, answers_id) VALUES(10, 38);
 INSERT INTO questions_answers(question_id, answers_id) VALUES(10, 39);
 INSERT INTO questions_answers(question_id, answers_id) VALUES(10, 40);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(11, 41);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(11, 42);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(11, 43);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(11, 44);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(12, 45);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(12, 46);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(12, 47);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(12, 48);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(13, 49);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(13, 50);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(13, 51);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(13, 52);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(14, 53);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(14, 54);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(14, 55);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(14, 56);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(15, 57);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(15, 58);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(15, 59);
+INSERT INTO questions_answers(question_id, answers_id) VALUES(15, 60);
